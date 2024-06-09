@@ -227,11 +227,9 @@ h1 {
 
 #exif-img img {
     width: 100%;
-    height: 100%;
+    height: 60%;
     padding: 12px;
     margin: 12px;
-    ;
-
     /* fit image to cover the div */
     object-fit: contain;
     /* center image */

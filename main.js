@@ -13,6 +13,7 @@ document.getElementById('fileInput').addEventListener('change', async (event) =>
     imgElement.innerHTML = '';
 
 
+
     const file = event.target.files[0];
     console.log(file);
     imgElement.innerHTML = `<img src="${URL.createObjectURL(file)}" />`;
@@ -25,6 +26,8 @@ document.getElementById('fileInput').addEventListener('change', async (event) =>
         //show exif data
         displayExifData(exifData);
     }
+
+
 });
 function formatJSON(json) {
     // Convert the JSON object to a string with 2-space indentation
