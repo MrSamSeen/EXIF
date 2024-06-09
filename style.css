@@ -219,17 +219,17 @@ h1 {
 
 #exif-img {
     width: 80vw;
-    height: 40vw;
-    margin: auto;
+    height: 40vh;
+    margin: 0 auto;
 
     overflow: hidden;
 }
 
 #exif-img img {
-    width: 100%;
-    height: 60%;
+    width: 100vw;
+    height: 40vh;
     padding: 12px;
-    margin: 12px;
+    margin: auto;
     /* fit image to cover the div */
     object-fit: contain;
     /* center image */
