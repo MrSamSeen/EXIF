@@ -10,6 +10,7 @@ document.getElementById('fileInput').addEventListener('change', async (event) =>
     const promptElement = document.getElementById('ai-prompt');
     promptElement.innerHTML = '';
     const imgElement = document.getElementById('exif-img');
+    imgElement.innerHTML = '';
 
 
     const file = event.target.files[0];

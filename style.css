@@ -152,7 +152,12 @@ input {
     }
 }
 
+
 /* file upload button */
+input[type="file"] {
+    display: none;
+}
+
 input[type="file"]::file-selector-button {
     border-radius: 4px;
     padding: 0 32px;
@@ -182,15 +187,20 @@ input[type="file"]::file-selector-button:active {
 
 #fileInputLabel {
     border-radius: 6px;
-    padding: 12px 32px;
-    height: 40px;
+    padding: 18px 32px;
     cursor: pointer;
     background-color: white;
-    border: 1px solid rgba(0, 0, 0, 0.16);
-    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
     margin-right: 16px;
     transition: background-color 200ms;
+    border-top: #fff solid 1px;
+    border-left: #fff solid 1px;
     margin: 12px auto;
+    position: relative;
+    display: grid;
+    width: 200px;
+    align-content: center;
+    text-align: center;
     font-weight: bolder;
     font-size: 2em;
 }
@@ -201,6 +211,10 @@ input[type="file"]::file-selector-button:active {
 
 #fileInputLabel:active {
     background-color: #e5e7eb;
+}
+
+h1 {
+    text-align: center;
 }
 
 #exif-img {
