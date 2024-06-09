@@ -9,9 +9,13 @@ document.getElementById('fileInput').addEventListener('change', async (event) =>
 
     const promptElement = document.getElementById('ai-prompt');
     promptElement.innerHTML = '';
+    const imgElement = document.getElementById('exif-img');
 
 
     const file = event.target.files[0];
+    console.log(file);
+    imgElement.innerHTML = `<img src="${URL.createObjectURL(file)}" />`;
+    imgElement.style.display = 'block';
     if (file) {
         const arrayBuffer = await file.arrayBuffer();
         const exifData = ExifReader.load(arrayBuffer);
