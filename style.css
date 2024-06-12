@@ -19,7 +19,7 @@ input {
     border-radius: 4px;
     padding: 4px 10px;
     line-height: 1.5;
-    background-color: antiquewhite;
+    background-color: #E0E0E0;
 }
 
 .exif-key {
@@ -72,15 +72,67 @@ input {
     cursor: pointer;
     box-sizing: border-box;
     display: inline-block;
-    padding: 4px 8px;
-    background-color: antiquewhite;
+    padding: 4px 6px;
+    background-color: #E0E0E0;
     text-decoration: none;
     font-weight: bold;
     font-size: 16px;
     user-select: none;
     border-radius: 4px;
+    border: solid 1px #ccc;
     margin: 4px 2px;
 
+}
+
+#exif-toc-navigation span.exif-key a {
+    padding: 4px 6px;
+}
+
+#exif-toc-navigation span.exif-key a:hover {
+    color: #eee;
+
+}
+
+#exif-toc-navigation span.exif-key:hover {
+    border: solid 1px #aaa;
+    color: #eee;
+    background: #CCC;
+
+    animation: shine 1s ease-in-out alternate infinite;
+}
+
+@-webkit-keyframes shine {
+    from {
+        background: #999;
+    }
+
+    to {
+        background: #555;
+    }
+}
+
+@keyframes shine {
+    from {
+        background: #999;
+    }
+
+    to {
+        background: #555;
+    }
+}
+
+@keyframes highlight {
+    from {
+        background-color: #f3f4f6;
+        border: solid 1px #999;
+        box-shadow: 0 0 1px 1px #aaa;
+    }
+
+    to {
+        background-color: #00A;
+        border: solid 1px #ccc;
+        box-shadow: 0 0 1px 1px #ccc;
+    }
 }
 
 #exif-toc-navigation span.exif-key a {
@@ -93,6 +145,18 @@ input {
 #ai-prompt {
     padding: 10px 20px;
     line-height: 1.3em;
+}
+
+#prompt-title {
+    margin-top: 18px;
+    text-align: center;
+    padding: 6px 20px;
+    line-height: 1em;
+    background: teal;
+    color: white;
+    border-radius: 4px;
+    border: #33bb66 dashed 1px;
+    display: none;
 }
 
 #prompt-metadata {
@@ -221,21 +285,20 @@ h1 {
     width: 80vw;
     height: 40vh;
     margin: 0 auto;
-
     overflow: hidden;
 }
 
 #exif-img img {
-    width: 100vw;
-    height: 40vh;
-    padding: 12px;
-    margin: auto;
-    /* fit image to cover the div */
+    border: solid 1px #aaa;
+    width: auto;
+    height: 100%;
+    padding: 0;
+    margin: 0 auto;
+    display: block;
     object-fit: contain;
-    /* center image */
     object-position: center;
     box-sizing: border-box;
-    /* border: #00000050 dashed 1px; */
     border-radius: 4px;
+    box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.3);
 
 }

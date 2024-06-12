@@ -1,6 +1,6 @@
 let output;
 document.getElementById('fileInput').addEventListener('change', async (event) => {
-    //clear all div content
+
     const exifDataElement = document.getElementById('exif-data');
     exifDataElement.innerHTML = '';
 
@@ -9,13 +9,15 @@ document.getElementById('fileInput').addEventListener('change', async (event) =>
 
     const promptElement = document.getElementById('ai-prompt');
     promptElement.innerHTML = '';
+    const promptElementTitle = document.getElementById('prompt-title');
+    promptElementTitle.innerHTML = '';
+    promptElementTitle.style.display = 'none';
+
+
     const imgElement = document.getElementById('exif-img');
     imgElement.innerHTML = '';
 
-
-
     const file = event.target.files[0];
-    console.log(file);
     imgElement.innerHTML = `<img src="${URL.createObjectURL(file)}" />`;
     imgElement.style.display = 'block';
     if (file) {
@@ -39,59 +41,58 @@ function displayExifData(exifData) {
     exifDataElement.innerHTML = '';
     for (const [key, value] of Object.entries(exifData)) {
 
-        //add to toc
         const exifTocElement = document.getElementById('exif-toc-navigation');
         exifTocElement.innerHTML += `
             <span class="exif-key"><a href="#${key}">${key}</a></span> 
         `;
 
-        //if key is prompt
         if (key === 'prompt') {
             const promptElement = document.getElementById('ai-prompt');
             output = value;
+            let jdata = JSON.parse(output.description);
 
-            let found = `<div id="prompt-metadata"><strong>AI Image prompt found:</strong> <hr>
-                <table>
-                    <tr><td><strong>Positive prompt</strong> </td><td>${JSON.parse(output.description)[3]["inputs"]["positive"]} </td></tr>
-            
-                    <tr><td><strong>Negative prompt</strong></td><td> ${JSON.parse(output.description)[3]["inputs"]["negative"]}</td></tr>
-                    <tr><td><strong>Seed</strong></td><td>  ${JSON.parse(output.description)[2]["inputs"]["seed"]} </td></tr>
-                    <tr><td><strong>Step Count</strong></td><td>  ${JSON.parse(output.description)[2]["inputs"]["steps"]}</td></tr>
-                    <tr><td><strong>CFG Scale</strong></td><td>  ${JSON.parse(output.description)[2]["inputs"]["cfg"]} </td></tr>
-            
-                    <tr><td><strong>Sampler</strong></td><td>  ${JSON.parse(output.description)[2]["inputs"]["sampler_name"]}</td></tr>
-                    <tr><td><strong>Scheduler</strong></td><td> ${JSON.parse(output.description)[2]["inputs"]["scheduler"]} </td></tr>
-            
-                    <tr><td><strong>Model</strong></td><td> ${JSON.parse(output.description)[3]["inputs"]["ckpt_name"]}</td></tr>
-                    <tr><td><strong>Clip Skip</strong></td><td> ${JSON.parse(output.description)[3]["inputs"]["clip_skip"]}<td></tr>
-                    <tr><td><strong>LoRA</strong></td><td> ${JSON.parse(output.description)[3]["inputs"]["lora_name"]}</td></tr>
-                </table>
-            </div>
-            `;
-
-
-
-            promptElement.innerHTML = found;
-
+            json2array(jdata);
 
         }
 
+        function json2array(value, key = '') {
+            const promptElement = document.getElementById('ai-prompt');
+            const promptElementTitle = document.getElementById('prompt-title');
 
 
-        console.log(key, value);
+            if (Array.isArray(value)) {
+                value.forEach(json2array, key);
+            } else if (typeof value === 'object') {
+                Object.keys(value).forEach(function (key) {
+                    json2array(value[key], key);
+                });
+
+            } else {
+                if (value != 'None' && typeof key === 'string' && value !== 'unknown' && value != '0' && value != '1' && value != '') {
+                    promptElementTitle.innerHTML = '<h2>AI Prompt Data Found</h2>';
+                    promptElementTitle.style.display = 'block';
+                    // console.log(key + ': ' + value);
+                    key = key.toUpperCase();
+                    promptElement.innerHTML += `<div class="json-block" id="${key}-${value}"><strong>${key} \t:</strong> ${value}</div>`
+                }
+            }
+
+        }
+
         let str = JSON.stringify(value.description, null, 2);
-        str = str.replace(/\\n/g, '\n');
 
-        str = str.replaceAll('\\', '');
-        // replace { with {\n
-        str = str.replaceAll('{', '<div class="json-block">{\n');
-        // replace } with \n}
-        str = str.replaceAll('}', '\n}</div>');
+        if (str !== undefined) {
+            str = str.replace(/\\n/g, '\n');
 
+            str = str.replaceAll('\\', '');
+            // replace { with {\n
+            str = str.replaceAll('{', '<div class="json-block">{\n');
+            // replace } with \n}
+            str = str.replaceAll('}', '\n}</div>');
 
-        str = str.replaceAll(',', ',\n');
+            str = str.replaceAll(',', ',\n');
 
-        exifDataElement.innerHTML += `
+            exifDataElement.innerHTML += `
              <div  id="${key}" class="exif-entry">
                 
                 <!--<div class="toggle-btn" onclick="toggleEntry(this)">-</div>-->
@@ -99,7 +100,7 @@ function displayExifData(exifData) {
                 <span class="exif-value json">${str}</span>
             </div>
             `;
-
+        }
     }
 }
 
