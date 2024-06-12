@@ -95,29 +95,37 @@ input {
 
 #exif-toc-navigation span.exif-key:hover {
     border: solid 1px #aaa;
-    color: #eee;
+    color: #777;
     background: #CCC;
 
-    animation: shine 1s ease-in-out alternate infinite;
+    animation: shine 2s ease-in-out alternate infinite;
 }
 
 @-webkit-keyframes shine {
     from {
-        background: #999;
+        background: #777;
+        color: #999;
+
     }
 
     to {
         background: #555;
+        color: #ccc;
+
     }
 }
 
 @keyframes shine {
     from {
-        background: #999;
+        background: #777;
+        color: #999;
+
     }
 
     to {
         background: #555;
+        color: #ccc;
+
     }
 }
 
@@ -271,6 +279,8 @@ input[type="file"]::file-selector-button:active {
 
 #fileInputLabel:hover {
     background-color: #f3f4f6;
+    animation: shine 1s ease-in-out alternate infinite;
+
 }
 
 #fileInputLabel:active {
